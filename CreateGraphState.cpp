@@ -61,6 +61,24 @@ void CreateGraphState::handleEvents(sf::Event &evt) {
             }
         break;
         }
+        case sf::Event::KeyPressed:
+        {
+            switch (evt.key.code)
+            {
+                case sf::Keyboard::Left:
+                    // Change background to the left
+                    break;
+                case sf::Keyboard::Right:
+                    // Change background to the right
+                    break;
+                case sf::Keyboard::E:
+                    m_listPoints.clear();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
         default: break;
     }
 }
