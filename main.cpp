@@ -1,9 +1,11 @@
 #include <iostream>
+#include "Display.hpp"
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    Display display;
+    display.run();
     return 0;
 }
