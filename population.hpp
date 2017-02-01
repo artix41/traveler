@@ -5,6 +5,9 @@
 
 class Population : public std::vector<Individual> {
 public:
+    void sort();
+    Individual choose();
+    void selection();
 
 };
 

@@ -3,7 +3,7 @@
 
 class Individual {
 protected:
-    float fitness;
+    float _fitness;
 public:
     virtual friend Individual* cross_over(Individual individual1, Individual individual2)=0;
     virtual Individual mutation()=0;

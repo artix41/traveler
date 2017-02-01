@@ -4,12 +4,14 @@
 
 class Path : public Individual {
 private:
-    int* path;
+    int* _path;
+    int _pathLen;
+    static std::vector<std::vector<float>> _graph;
 public:
-    Path();
-    friend Path* cross_over(Path path1, Path path2) const;
+    Path(int pathLen);
+    friend Path* crossOver(Path path1, Path path2) const;
     Path mutation();
-    void evaluate(const & std::vector<std::vector<float>> M);
+    void evaluate();
 
 };
 
