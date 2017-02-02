@@ -6,7 +6,7 @@
 #include "individual.hpp"
 using namespace std;
 
-Individual* geneticAlgo(Population & population, int nbGeneration, int nbLoozer) {
+void geneticAlgo(Population & population, int nbGeneration, int nbLoozer) {
   for(unsigned int i=0; i<population.size(); i++) {
     population[i]->evaluate();
   }
@@ -23,7 +23,6 @@ Individual* geneticAlgo(Population & population, int nbGeneration, int nbLoozer)
       population[population.size()-nbLoozer+i]->evaluate();
     }
   }
-  return(population[0]);
 }
 
 bool compare(Individual* individual1, Individual* individual2){
