@@ -5,9 +5,10 @@ class Individual {
 protected:
     float _fitness;
 public:
-    virtual friend Individual* cross_over(Individual individual1, Individual individual2)=0;
-    virtual Individual mutation()=0;
-    friend bool operator<(Individual individual1, Individual individual2);
+    virtual void mutation()=0;
+    virtual void evaluate()=0;
+    virtual void crossOver(Individual *, Individual *)=0;
+    friend bool operator<(Individual const &, Individual const &);
 };
 
 

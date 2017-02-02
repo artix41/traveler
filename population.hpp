@@ -2,13 +2,15 @@
 #define POPULATION_HPP_INCLUDED
 #include <vector>
 #include "individual.hpp"
+using namespace std;
 
-class Population : public std::vector<Individual> {
+class Population : public vector<Individual*> {
 public:
-    void sort();
-    Individual choose();
-    void selection();
-
+    ~Population();
+    Individual* choose(int);
+    Individual* choose2(int, int);
+    void selection(int);
+    void selection2(int, int);
 };
 
 #endif // POPULATION_HPP_INCLUDED

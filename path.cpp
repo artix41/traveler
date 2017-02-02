@@ -1,16 +1,23 @@
-#include <path.hpp>
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <algorithm>
+#include "path.hpp"
+using namespace std;
+
+
+void Path::set_graph(vector<vector<float> > graph){
+  _graph = graph;
+}
+
 Path::Path(int pathLen, bool randomGen=false){
-    _pathLen = pathLen;
-    _path = new int[pathLen];
     if(randomGen){
-        for(int i(0) ; i<pathLen ; i++){
-            _path[i] = i;
+        for(int i = 0 ; i<pathLen ; i++){
+            _path.push_back(i);
         }
-        for(int i(0) ; i<pathLen ; i++){
-            j = rand()%_pathLen;
-            int temp = _path[j];
-            _path[j] = _path[i];
-            _path[i] = temp;
+        for(int i = 0 ; i<pathLen ; i++){
+            int j = rand()%(_path.size()-i) + i;
+            iter_swap(_path.begin()+i, _path.begin()+j);
         }
     }
     else{
@@ -19,74 +26,94 @@ Path::Path(int pathLen, bool randomGen=false){
         }
     }
 }
-Path Path::crossOver2(Path path1, Path path2){
-    Path newPath1 newPath2;
-    std::vector<int> indexDouble1 indexDouble2;
 
-    int l = rand()%_pathLen;
-    for(int i(0) ; i<l ; i++){
-        newPath1[i] = path1[i];
-        newPath2[i] = path2[i]
-    }
-    for(int i(l) ; i<_pathLen : i++){
-        newPath1[i] = Path2[i];
-        newPath2[i] = Path1[i];
-    }
-Path Path::crossOver(Path path1, Path path2){
-    Path newPath(path1._pathLen, false);
-    std::vector<bool> assigned(false,path1._pathLen);
-    std::vector<int> notAssigned;
+ostream & operator<<(ostream& out, Path path){
+  out<<"["<< path._path[0];
+  for(unsigned int i = 1; i< path._path.size();i++){
+    out<<", "<< path._path[i];
+  }
+  out<<"]";
+  out<<", fitness = "<<path._fitness;
+  return out;
+}
 
-    for(int i(0) ; i<path1._pathLen; i++){
-        if (not(path1[i] in newPath)){
-            if (not(path2[i] in newPath)){
+void Path::crossOver(Individual* path1a, Individual* path2a){
+    Path* path1 = dynamic_cast<Path*>(path1a);
+    Path* path2 = dynamic_cast<Path*>(path2a);
+    vector<bool> assigned(false,path1->_path.size());
+    vector<int> notAssigned;
+    for(unsigned int i = 0 ; i<path1->_path.size(); i++){
+        if (not is_in(_path, path1->_path[i])){
+            if (not is_in(_path, path2->_path[i])){
                 int r = rand()%1;
-                newPath[i] = r*path1[i] + (1-r)*path2[i]
+                _path[i] = r*path1->_path[i] + (1-r)*path2->_path[i];
             }
             else{
-                newPath[i] = path1[i]
+                _path[i] = path1->_path[i];
             }
         }
         else{
-            if (not(path2[i] in newPath)){
-                newPath[i] = path2[i]
+            if (not is_in(_path, path2->_path[i])){
+                _path[i] = path2->_path[i];
             }
         }
     }
 
-    for(int i(0) ; i<_pathLen : i++){
-        if (newPath[i]!=-1)
+    for(unsigned int i = 0 ; i<path1->_path.size(); i++){
+        if (_path[i]!=-1)
         {
-            assigned[newPath[i]] = true;
+          assigned[_path[i]] = true;
         }
     }
 
-    for(int i(0) ; i<_pathLen : i++){
-        if (assigned[i])
+    for(unsigned int i = 0 ; i<path1->_path.size(); i++){
+        if (not assigned[i])
         {
-            notAssigned.push(i);
+            notAssigned.push_back(i);
         }
     }
-
+    for(unsigned int i = 0; i<notAssigned.size(); i++){
+      int r = rand()%notAssigned.size();
+      iter_swap(notAssigned.begin()+i, notAssigned.begin()+r);
+    }
+    for (unsigned int i = 0; i < path1->_path.size(); i++) {
+      if (_path[i]==-1){
+        _path[i] = notAssigned[notAssigned.size()-1];
+        notAssigned.pop_back();
+      }
+    }
 }
 
+void Path::mutation(){
+  int r1 = rand()%_path.size();
+  int r2 = rand()%_path.size();
+  iter_swap(_path.begin()+r1, _path.begin()+r2);
+}
 
-Path mutation();
+void Path::mutation2(){
+  int a = rand()%_path.size();
+  int b = rand()%_path.size();
+  int r1 = min(a,b);
+  int r2 = max(a,b);
+  for(int i = 0;i<(r2-r1+1)/2; i++){
+    iter_swap(_path.begin()+r1+i, _path.begin()+r2-i);
+  }
+}
 
 void Path::evaluate(){
-    _fitness = 0;
-    for(int i(0) ; i<_pathLen-1 ; i++){ // Attention graph complet
-        _fitness += graph[_path[i]][_path[i+1]];
+    _fitness = _graph[_path[_path.size()-1]][_path[0]];
+    for(unsigned int i = 0; i<_path.size()-1 ; i++){
+        _fitness += _graph[_path[i]][_path[i+1]];
     }
-    _fitness += _graph[_path[0]][_path[_pathLen-1];
 }
 
-template<T>
-bool in(std::vector<T> list, T x, int i){
-    for(int j(0) ; j<i ; j++){
+
+template<class T>
+bool is_in(const std::vector<T>& list, T x){
+    for(unsigned int j = 0; j<list.size(); j++){
         if(x == list[j]){
-            return true;
+            return(true);
         }
     }
-    return false;
+    return(false);
 }
