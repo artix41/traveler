@@ -2,38 +2,22 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
+#include "Display.hpp"
 #include "CreateGraphState.hpp"
-#include "DisplayState.hpp"
+#include "AbstractState.hpp"
+#include "AnimationState.hpp"
 
-CreateGraphState::CreateGraphState(sf::RenderWindow& renderWindow):
-    DisplayState(renderWindow)
+CreateGraphState::CreateGraphState(Display* display):
+    AbstractState(display)
 {
     m_textureBackground.loadFromFile("maps/game_of_throne.png");
     m_background.setTexture(m_textureBackground);
-    addPoint(sf::Vector2f(0,0));
-    addPoint(sf::Vector2f(500,300));
-
     m_radiusPoint = 10;
     m_colorPoint = sf::Color::Red;
 }
 
-void CreateGraphState::addPoint(sf::Vector2f point) {
-    m_listPoints.push_back(point);
-}
-
-void CreateGraphState::removePoint(int index) {
-    m_listPoints.erase(m_listPoints.begin() + index);
-}
-
 void CreateGraphState::draw() {
-    for (int i=0; i < (int) m_listPoints.size(); i++) {
-        sf::CircleShape circle;
-        circle.setRadius(m_radiusPoint);
-        circle.setFillColor(m_colorPoint);
-        circle.setPosition(m_listPoints[i].x, m_listPoints[i].y);
-        circle.setOrigin(sf::Vector2f(circle.getGlobalBounds().width/2, circle.getGlobalBounds().height/2));
-        m_renderWindow.draw(circle);
-    }
+    AbstractState::draw();
 }
 
 void CreateGraphState::handleEvents(sf::Event &evt) {
@@ -41,7 +25,7 @@ void CreateGraphState::handleEvents(sf::Event &evt) {
     {
         case sf::Event::MouseButtonPressed:
         {
-            auto position = m_renderWindow.mapPixelToCoords(sf::Mouse::getPosition(m_renderWindow));
+            auto position = m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow));
             switch (evt.mouseButton.button)
             {
                 case sf::Mouse::Left:
@@ -74,6 +58,12 @@ void CreateGraphState::handleEvents(sf::Event &evt) {
                 case sf::Keyboard::E:
                     m_listPoints.clear();
                     break;
+                case sf::Keyboard::Return: {
+                    std::cout << "Démarre l'animation" << '\n';
+                    AnimationState* animationState = new AnimationState(m_display);
+                    m_display->push(animationState);
+                    break;
+                }
                 default:
                     break;
             }

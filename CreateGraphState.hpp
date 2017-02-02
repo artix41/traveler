@@ -5,21 +5,15 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "DisplayState.hpp"
+#include "AbstractState.hpp"
 
-class CreateGraphState : public DisplayState {
+class Display;
+
+class CreateGraphState : public AbstractState {
 public:
-    CreateGraphState(sf::RenderWindow& renderWindow);
-
-    void update();
+    CreateGraphState(Display* display);
     void draw();
     void handleEvents(sf::Event& evt);
-    void addPoint(sf::Vector2f point);
-    void removePoint(int index);
-private:
-    std::vector<sf::Vector2f> m_listPoints;
-    int m_radiusPoint;
-    sf::Color m_colorPoint;
 };
 
 #endif

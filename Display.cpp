@@ -4,16 +4,25 @@
 #include <memory>
 
 #include "Display.hpp"
-#include "DisplayState.hpp"
+#include "AbstractState.hpp"
 #include "CreateGraphState.hpp"
+#include "AnimationState.hpp"
 
 Display::Display():
     m_videoSettings(),
     m_windowTitle("Genetic Travelling Salesman"),
     m_renderWindow (m_videoSettings.videoMode, m_windowTitle, m_videoSettings.windowStyle)
 {
-    m_stateStack.push_back(std::make_shared<CreateGraphState>(m_renderWindow));
-    std::cout << m_stateStack.empty() << std::endl;
+    CreateGraphState* createGraphState = new CreateGraphState(this);
+    m_stateStack.push_back(createGraphState);
+}
+
+void Display::push(AbstractState* state) {
+    m_stateStack.push_back(state);
+}
+
+sf::RenderWindow& Display::getRenderWindow() {
+    return m_renderWindow;
 }
 
 void Display::run() {
