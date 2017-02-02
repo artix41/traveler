@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 
-#include "DisplayState.hpp"
+#include "AbstractState.hpp"
 
 struct VideoSettings
 {
@@ -29,7 +29,7 @@ private:
     VideoSettings m_videoSettings;
     std::string m_windowTitle;
     sf::RenderWindow m_renderWindow;
-    std::vector<std::shared_ptr<DisplayState>> m_stateStack;
+    std::vector<std::shared_ptr<AbstractState>> m_stateStack;
 };
 
 #endif

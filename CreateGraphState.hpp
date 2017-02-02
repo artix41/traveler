@@ -5,9 +5,9 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "DisplayState.hpp"
+#include "AbstractState.hpp"
 
-class CreateGraphState : public DisplayState {
+class CreateGraphState : public AbstractState {
 public:
     CreateGraphState(sf::RenderWindow& renderWindow);
 

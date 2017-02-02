@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "Display.hpp"
-#include "DisplayState.hpp"
+#include "AbstractState.hpp"
 #include "CreateGraphState.hpp"
 
 Display::Display():

@@ -3,10 +3,10 @@
 #include <cmath>
 
 #include "CreateGraphState.hpp"
-#include "DisplayState.hpp"
+#include "AbstractState.hpp"
 
 CreateGraphState::CreateGraphState(sf::RenderWindow& renderWindow):
-    DisplayState(renderWindow)
+    AbstractState(renderWindow)
 {
     m_textureBackground.loadFromFile("maps/game_of_throne.png");
     m_background.setTexture(m_textureBackground);
