@@ -12,6 +12,7 @@ Individual* geneticAlgo(Population & population, int nbGeneration, int nbLoozer)
   }
 
   for(int geneIndex=0; geneIndex<nbGeneration; geneIndex++){
+    std::cout << geneIndex << '\n';
     sort(population.begin(),population.end(),compare);
     population.selection(population.size()-nbLoozer);
 
