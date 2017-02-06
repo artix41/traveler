@@ -5,6 +5,7 @@
 #include "path.hpp"
 using namespace std;
 
+Path::~Path(){}
 
 void Path::set_graph(vector<vector<float> > graph){
   _graph = graph;
@@ -60,15 +61,13 @@ void Path::crossOver(Individual* path1a, Individual* path2a){
     }
 
     for(unsigned int i = 0 ; i<path1->_path.size(); i++){
-        if (_path[i]!=-1)
-        {
+        if (_path[i]!=-1) {
           assigned[_path[i]] = true;
         }
     }
 
     for(unsigned int i = 0 ; i<path1->_path.size(); i++){
-        if (not assigned[i])
-        {
+        if (not assigned[i]) {
             notAssigned.push_back(i);
         }
     }

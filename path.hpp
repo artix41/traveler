@@ -10,6 +10,7 @@ private:
     vector<int> _path;
     static std::vector<std::vector<float> > _graph;
 public:
+    ~Path();
     Path(int, bool);
     void set_graph(vector<vector<float> >);
     void crossOver(Individual*, Individual*);

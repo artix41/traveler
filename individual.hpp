@@ -6,6 +6,7 @@ protected:
     float _fitness;
 public:
     virtual void mutation()=0;
+    virtual ~Individual();
     virtual void evaluate()=0;
     virtual void crossOver(Individual *, Individual *)=0;
     friend bool operator<(Individual const &, Individual const &);
