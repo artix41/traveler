@@ -14,14 +14,12 @@ public:
     Path(int, bool);
     void set_graph(vector<vector<float> >);
     void crossOver(Individual*, Individual*);
+    void crossOver2(Individual*, Individual*);
     void mutation();
     void mutation2();
     void evaluate();
     friend ostream& operator<<(ostream&, Path);
 
 };
-
-template<class T>
-bool is_in(const std::vector<T>& list, T x);
 
 #endif // PATH_HPP_INCLUDED
