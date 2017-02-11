@@ -21,6 +21,16 @@ void Display::push(AbstractState* state) {
     m_stateStack.push_back(state);
 }
 
+void Display::pop() {
+    if (m_stateStack.size() > 1) {
+        m_stateStack.pop_back();
+    }
+}
+
+AbstractState* Display::back() {
+    return m_stateStack.back();
+}
+
 sf::RenderWindow& Display::getRenderWindow() {
     return m_renderWindow;
 }

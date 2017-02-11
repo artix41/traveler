@@ -17,6 +17,9 @@ public:
     sf::Texture& getTexture();
     void addPoint(sf::Vector2f point);
     void removePoint(int index);
+    std::vector<sf::Vector2f> getListPoints();
+    int getRadiusPoint();
+    sf::Color getColorPoint();
 
 protected:
     Display* m_display;

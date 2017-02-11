@@ -30,6 +30,18 @@ void AbstractState::draw() {
     }
 }
 
+int AbstractState::getRadiusPoint() {
+    return m_radiusPoint;
+}
+
+sf::Color AbstractState::getColorPoint() {
+    return m_colorPoint;
+}
+
+std::vector<sf::Vector2f> AbstractState::getListPoints() {
+    return m_listPoints;
+}
+
 void AbstractState::addPoint(sf::Vector2f point) {
     m_listPoints.push_back(point);
 }
