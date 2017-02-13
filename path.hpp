@@ -10,9 +10,11 @@ private:
     vector<int> _path;
     static std::vector<std::vector<float> > _graph;
 public:
+    ~Path();
     Path(int, bool);
     void set_graph(vector<vector<float> >);
     void crossOver(Individual*, Individual*);
+    void crossOver2(Individual*, Individual*);
     void mutation();
     void mutation2();
     void evaluate();
@@ -22,8 +24,5 @@ public:
     friend ostream& operator<<(ostream&, Path);
 
 };
-
-template<class T>
-bool is_in(const std::vector<T>& list, T x);
 
 #endif // PATH_HPP_INCLUDED

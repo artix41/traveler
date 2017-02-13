@@ -1,7 +1,12 @@
 #include <iostream>
-#include "Display.hpp"
+#include <vector>
+#include <cmath>
 
-using namespace std;
+#include "Display.hpp"
+#include "algo_genetique.hpp"
+#include "population.hpp"
+#include "individual.hpp"
+#include "path.hpp"
 
 int main()
 {

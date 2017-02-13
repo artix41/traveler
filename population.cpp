@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <vector>
 #include <cmath>
+#include <iostream>
 #include "population.hpp"
 #include "individual.hpp"
 using namespace std;
@@ -21,24 +22,24 @@ Individual* Population::choose2(int n, int p){
 
 void Population::selection(int nbSelected){}
 
+
 void Population::selection2(int nbSelected, int p){
-  vector<int> order(size());
+  vector<int> weight;
 
   for(unsigned int i=0;i<size();i++){
-    order[i] = i;
+    weight.push_back(size()-i);
   }
-  int sum = (size()+1)*size()/2+size()*p;
-
-  for(int i=0;i<nbSelected;i++){
-    int r = rand() %sum + 1;
+  int sum = (size()-5)*(size()-4)/2+(size()-5)*p;
+  for(int i=5;i<nbSelected+5;i++){
+    int r = rand() %sum;
     int s = 0;
     int j = i-1;
-    while (s<r){
+    while (s<=r){
       j++;
-      s += order[j]+p;
+      s += weight[j]+p;
     }
     iter_swap(begin()+i, begin()+j);
-    iter_swap(order.begin()+i, order.begin()+j);
-    sum -= order[i] + p;
+    iter_swap(weight.begin()+i, weight.begin()+j);
+    sum -= weight[i] + p;
   }
 }

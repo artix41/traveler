@@ -86,6 +86,7 @@ void AnimationState::draw() {
     for (int i = 0; i < (int) path.size(); i++)
         std::cout << path[i];
     std::cout << "" << '\n';
+    
     for (int i = 0; i < (int) path.size() - 1; i++) {
         drawEdge(m_listPoints[path[i]], m_listPoints[path[i+1]]);
     }
@@ -99,7 +100,7 @@ void AnimationState::update() {
     std::cout << "Before genetic algo : ";
 
     usleep(500000);
-    geneticAlgo(&m_population, 1, m_nbLoosers);
+    geneticAlgo(m_population, 1, m_nbLoosers);
 
     std::cout << "After genetic algo : ";
 }
