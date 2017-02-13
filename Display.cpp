@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
+#include <unistd.h>
 
 #include "Display.hpp"
 #include "AbstractState.hpp"
@@ -62,7 +63,10 @@ void Display::run() {
         }
         m_renderWindow.clear();
         m_renderWindow.draw(background);
+
         m_stateStack.back()->draw();
+        m_stateStack.back()->update();
+
         //m_renderWindow.draw(background);
         m_renderWindow.display();
     }

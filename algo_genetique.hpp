@@ -3,5 +3,5 @@
 #include "individual.hpp"
 using namespace std;
 
-Individual* geneticAlgo(Population&, int, int nbLoozer=10);
+void geneticAlgo(Population*, int, int nbLoozer=10);
 bool compare(Individual* individual1, Individual* individual2);

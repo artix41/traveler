@@ -5,6 +5,7 @@
 #include "path.hpp"
 using namespace std;
 
+std::vector<std::vector<float> > Path::_graph;
 
 void Path::set_graph(vector<vector<float> > graph){
   _graph = graph;
@@ -25,6 +26,10 @@ Path::Path(int pathLen, bool randomGen=false){
             _path[i] = -1;
         }
     }
+}
+
+vector<int> Path::getPath() {
+    return _path;
 }
 
 ostream & operator<<(ostream& out, Path path){

@@ -11,6 +11,7 @@ public:
     AbstractState(Display* display);
 
     virtual void draw()=0;
+    virtual void update()=0;
     virtual void handleEvents(sf::Event& evt)=0;
 
     sf::Sprite& getBackground();

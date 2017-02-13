@@ -13,6 +13,7 @@ class CreateGraphState : public AbstractState {
 public:
     CreateGraphState(Display* display);
     void draw();
+    void update();
     void handleEvents(sf::Event& evt);
 };
 

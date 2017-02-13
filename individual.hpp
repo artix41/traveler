@@ -11,5 +11,4 @@ public:
     friend bool operator<(Individual const &, Individual const &);
 };
 
-
 #endif // INDIVIDUAL_HPP_INCLUDED
