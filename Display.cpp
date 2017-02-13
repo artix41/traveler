@@ -67,7 +67,6 @@ void Display::run() {
         m_stateStack.back()->draw();
         m_stateStack.back()->update();
 
-        //m_renderWindow.draw(background);
         m_renderWindow.display();
     }
 }

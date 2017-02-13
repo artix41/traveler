@@ -27,6 +27,7 @@ private:
     sf::Color m_colorEdge;
     int m_nbLoosers;
     int m_sizePopulation;
+    int m_generation;
 
     void createGraph();
     void initPopulation();

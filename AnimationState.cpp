@@ -2,6 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <unistd.h>
+#include <string>
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
 
 #include "AnimationState.hpp"
 #include "CreateGraphState.hpp"
@@ -16,6 +19,8 @@ AnimationState::AnimationState(Display* display):
     m_listPoints = display->back()->getListPoints();
     m_radiusPoint = display->back()->getRadiusPoint();
     m_colorPoint = display->back()->getColorPoint();
+
+    m_generation = 1;
 
     m_widthEdge = 5;
     m_colorEdge = m_colorPoint;
@@ -47,6 +52,7 @@ void AnimationState::initPopulation() {
 
     for (int i=0; i < m_sizePopulation; i++) {
         m_population.push_back(new Path(m_graph.size(),true));
+        m_population.front()->evaluate();
     }
 }
 
@@ -69,40 +75,61 @@ void AnimationState::drawEdge(sf::Vector2f point1, sf::Vector2f point2) {
 }
 
 void AnimationState::setPopulation(Population *population) {
-    std::cout << "Before clear" << '\n';
     m_population.clear();
-    std::cout << "After clear" << '\n';
     for (int i = 0; i < (int) population->size(); i++) {
         Path* path = dynamic_cast<Path*>((*population)[i]);
         m_population.push_back(new Path(*path));
     }
-    std::cout << "After push_back" << '\n';
 }
 
 void AnimationState::draw() {
     AbstractState::draw();
 
+    // Draw Edges
     std::vector<int> path = dynamic_cast<Path*>(m_population[0])->getPath();
-    for (int i = 0; i < (int) path.size(); i++)
-        std::cout << path[i];
-    std::cout << "" << '\n';
-    
     for (int i = 0; i < (int) path.size() - 1; i++) {
         drawEdge(m_listPoints[path[i]], m_listPoints[path[i+1]]);
     }
     drawEdge(m_listPoints[path[(int) path.size() - 1]], m_listPoints[path[0]]);
+
+    // Draw text (generation, distance)
+    float distance = m_population[0]->get_fitness();
+    std::cout << "Distance : " << distance << '\n';
+
+    stringstream streamDistance;
+    streamDistance << fixed << setprecision(2) << distance;
+    string strDistance = "Distance : " + streamDistance.str();
+    string strGeneration = "Generation : " + std::to_string(m_generation);
+
+    sf::Font font;
+    if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf")) {
+        std::cout << "Can't load the font" << '\n';
+    }
+
+    sf::Text textDistance;
+    textDistance.setFont(font);
+    textDistance.setCharacterSize(20);
+    textDistance.setStyle(sf::Text::Bold);
+    textDistance.setColor(sf::Color::Black);
+    textDistance.setPosition(sf::Vector2f(m_renderWindow->getSize().x - 300, 0));
+    textDistance.setString(strDistance);
+
+    sf::Text textGeneration = sf::Text(textDistance);
+    textGeneration.setPosition(sf::Vector2f(m_renderWindow->getSize().x - 300, 30));
+    textGeneration.setString(strGeneration);
+
+
+    m_renderWindow->draw(textDistance);
+    m_renderWindow->draw(textGeneration);
+
     std::cout << "\n";
 }
 
 void AnimationState::update() {
-    std::cout << "Update" << '\n';
-
-    std::cout << "Before genetic algo : ";
-
+    m_generation++;
+    std::cout << "Generation : " << m_generation << '\n';
     usleep(500000);
     geneticAlgo(m_population, 1, m_nbLoosers);
-
-    std::cout << "After genetic algo : ";
 }
 
 void AnimationState::handleEvents(sf::Event &evt) {

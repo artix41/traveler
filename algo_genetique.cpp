@@ -17,9 +17,9 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
   }
 
   for(int geneIndex=0; geneIndex<nbGeneration; geneIndex++){
-    if ((10*geneIndex)%nbGeneration == 0){
+    /*if ((10*geneIndex)%nbGeneration == 0){
       std::cout << 100*geneIndex/nbGeneration << " "<< population[0]->get_fitness() << '\n';
-    }
+  }*/
     sort(population.begin(),population.end(),compare);
     population.selection(population.size()-nbLoozer);
 
