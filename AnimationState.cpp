@@ -111,12 +111,14 @@ void AnimationState::draw() {
     textDistance.setCharacterSize(20);
     textDistance.setStyle(sf::Text::Bold);
     textDistance.setColor(sf::Color::Black);
-    textDistance.setPosition(sf::Vector2f(m_renderWindow->getSize().x - 300, 0));
     textDistance.setString(strDistance);
+    textDistance.setOrigin(textDistance.getGlobalBounds().width, 0);
+    textDistance.setPosition(sf::Vector2f(m_renderWindow->getSize().x  - 10, 0));
 
     sf::Text textGeneration = sf::Text(textDistance);
-    textGeneration.setPosition(sf::Vector2f(m_renderWindow->getSize().x - 300, 30));
     textGeneration.setString(strGeneration);
+    textGeneration.setOrigin(textGeneration.getGlobalBounds().width, 0);
+    textGeneration.setPosition(sf::Vector2f(m_renderWindow->getSize().x  - 10, textDistance.getGlobalBounds().height + 10));
 
 
     m_renderWindow->draw(textDistance);
