@@ -9,8 +9,8 @@ public:
     ~Population();
     Individual* choose(int);
     Individual* choose2(int, int);
-    void selection(int);
     void selection2(int, int);
+    void selection(int);
 };
 
 #endif // POPULATION_HPP_INCLUDED

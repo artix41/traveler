@@ -22,7 +22,12 @@ Individual* Population::choose2(int n, int p = 0){
   return at(n-1-index);
 }
 
-void Population::selection(int nbSelected){}
+void Population::selection(int nbShuffled){
+  for(int i = size()-nbShuffled; i<size(); i++){
+    int r = rand()%(size()-i)+i;
+    iter_swap(begin()+i, begin()+r);
+  }
+}
 
 void Population::selection2(int nbSelected, int p=0){
   vector<int> weight;
