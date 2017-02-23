@@ -10,6 +10,7 @@ public:
     virtual ~Individual();
     virtual void evaluate()=0;
     float get_fitness();
+    virtual void shuffle()=0;
     virtual void crossOver(Individual *, Individual *)=0;
     virtual void crossOver2(Individual *, Individual *)=0;
     friend bool operator<(Individual const &, Individual const &);

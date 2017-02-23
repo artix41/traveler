@@ -157,3 +157,10 @@ void Path::evaluate(){
         _fitness += _graph[_path[i]][_path[i+1]];
     }
 }
+
+void Path::shuffle(){
+  for(unsigned int i = 1 ; i<_path.size() ; i++){
+      int j = rand()%(_path.size()-i) + i;
+      iter_swap(_path.begin()+i, _path.begin()+j);
+  }
+}

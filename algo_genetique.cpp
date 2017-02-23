@@ -14,15 +14,28 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
 
   for(int geneIndex=0; geneIndex<nbGeneration; geneIndex++){
     if ((100*geneIndex)%nbGeneration == 0){
-      std::cout << 100*geneIndex/nbGeneration << " "<< population[0]->get_fitness() << '\n';
+      std::cout << 100*geneIndex/nbGeneration << " "<< population[0]->get_fitness()<< " "<< population[450]->get_fitness() << '\n';
     }
+
     sort(population.begin(),population.end(),compare);
+    // if (rand()%nbGeneration<15){
+    //   for(unsigned int i = 500; i<population.size();i++){
+    //     population[i]->shuffle();
+    //     population[i]->evaluate();
+    //   }
+    //   sort(population.begin(),population.end(),compare);
+    // }
     population.selection(0);
 
     for(int i=0; i<nbLoozer; i++){
       Individual* father = population.choose(population.size()-nbLoozer);
       Individual* mother = population.choose(population.size()-nbLoozer);
-      population[population.size()-nbLoozer+i]->crossOver2(father,mother);
+      if (rand()%2==0){
+        population[population.size()-nbLoozer+i]->crossOver2(father,mother);
+      }
+      else{
+        population[population.size()-nbLoozer+i]->crossOver2(father,father);
+      }
       for (int j = 0; j<10; j++){
         if(rand()%7==0){
           population[population.size()-nbLoozer+i]->mutation();
