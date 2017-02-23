@@ -25,6 +25,8 @@ public:
     Display();
     void run();
     void push(AbstractState* state);
+    void pop();
+    AbstractState* back();
     sf::RenderWindow& getRenderWindow();
 
 private:

@@ -6,6 +6,10 @@
 #include "individual.hpp"
 using namespace std;
 
+bool compare(Individual* individual1, Individual* individual2){
+    return(*individual1<*individual2);
+}
+
 void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
   int nbLoozer = population.size()/loozerFactor;
   for(unsigned int i=0; i<population.size(); i++) {
@@ -16,18 +20,10 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
     if ((100*geneIndex)%nbGeneration == 0){
       std::cout << 100*geneIndex/nbGeneration << " "<< population[0]->get_fitness()<< " "<< population[450]->get_fitness() << '\n';
     }
-
     sort(population.begin(),population.end(),compare);
-    // if (rand()%nbGeneration<15){
-    //   for(unsigned int i = 500; i<population.size();i++){
-    //     population[i]->shuffle();
-    //     population[i]->evaluate();
-    //   }
-    //   sort(population.begin(),population.end(),compare);
-    // }
     population.selection(0);
 
-    for(int i=0; i<nbLoozer; i++){
+    for(int i=0; i<nbLoozer; i++) {
       Individual* father = population.choose(population.size()-nbLoozer);
       Individual* mother = population.choose(population.size()-nbLoozer);
       if (rand()%2==0){
@@ -51,8 +47,4 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
     }
   }
   sort(population.begin(),population.end(),compare);
-}
-
-bool compare(Individual* individual1, Individual* individual2){
-  return(*individual1<*individual2);
 }

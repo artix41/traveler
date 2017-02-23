@@ -1,8 +1,11 @@
 #include "individual.hpp"
 
 bool operator<(Individual const & individual1, Individual const & individual2){
-  return(individual1._fitness<individual2._fitness);}
+  return(individual1._fitness<individual2._fitness);
+}
 
-  Individual::~Individual(){}
+Individual::~Individual(){}
 
-float Individual::get_fitness(){return(_fitness);}
+float Individual::get_fitness(){
+    return(_fitness);
+}

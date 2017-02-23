@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
+#include <unistd.h>
 
 #include "Display.hpp"
 #include "AbstractState.hpp"
@@ -15,10 +16,22 @@ Display::Display():
 {
     CreateGraphState* createGraphState = new CreateGraphState(this);
     m_stateStack.push_back(createGraphState);
+
+    m_renderWindow.setView(sf::View(sf::FloatRect(0, 0, m_renderWindow.getSize().x, m_renderWindow.getSize().y)));
 }
 
 void Display::push(AbstractState* state) {
     m_stateStack.push_back(state);
+}
+
+void Display::pop() {
+    if (m_stateStack.size() > 1) {
+        m_stateStack.pop_back();
+    }
+}
+
+AbstractState* Display::back() {
+    return m_stateStack.back();
 }
 
 sf::RenderWindow& Display::getRenderWindow() {
@@ -39,11 +52,17 @@ void Display::run() {
 
     while (m_renderWindow.isOpen()) {
         sf::Event event;
+        background.setScale(
+        m_renderWindow.getSize().x / background.getLocalBounds().width,
+        m_renderWindow.getSize().y / background.getLocalBounds().height);
 
         while (m_renderWindow.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::Closed:
                     m_renderWindow.close();
+                    break;
+                case sf::Event::Resized:
+                    m_renderWindow.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
                     break;
                 default:
                     break;
@@ -52,8 +71,10 @@ void Display::run() {
         }
         m_renderWindow.clear();
         m_renderWindow.draw(background);
+
         m_stateStack.back()->draw();
-        //m_renderWindow.draw(background);
+        m_stateStack.back()->update();
+
         m_renderWindow.display();
     }
 }

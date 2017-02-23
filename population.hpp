@@ -8,9 +8,9 @@ class Population : public vector<Individual*> {
 public:
     ~Population();
     Individual* choose(int);
-    Individual* choose2(int, int);
-    void selection2(int, int);
+    Individual* choose2(int, int p=0);
     void selection(int);
+    void selection2(int, int p=0);
 };
 
 #endif // POPULATION_HPP_INCLUDED

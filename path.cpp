@@ -5,6 +5,7 @@
 #include "path.hpp"
 using namespace std;
 
+std::vector<std::vector<float> > Path::_graph;
 Path::~Path(){}
 
 void Path::set_graph(vector<vector<float> > graph){
@@ -27,6 +28,10 @@ Path::Path(int pathLen, bool randomGen=false){
         }
         _path[0] = 0;
     }
+}
+
+vector<int> Path::getPath() {
+    return _path;
 }
 
 ostream & operator<<(ostream& out, Path path){
@@ -108,7 +113,7 @@ void Path::crossOver2(Individual* path1a, Individual* path2a){
     int gene;
 
     for(unsigned int i = 1 ; i<len; i++){
-        if (i<r1 or i>r2){
+        if ((int) i < r1 or (int) i > r2){
             gene = path1->_path[i];
           }
         else{

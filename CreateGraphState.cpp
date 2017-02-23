@@ -13,11 +13,15 @@ CreateGraphState::CreateGraphState(Display* display):
     m_textureBackground.loadFromFile("maps/game_of_throne.png");
     m_background.setTexture(m_textureBackground);
     m_radiusPoint = 10;
-    m_colorPoint = sf::Color::Red;
+    m_colorPoint = sf::Color(244, 67, 54);
 }
 
 void CreateGraphState::draw() {
     AbstractState::draw();
+}
+
+void CreateGraphState::update() {
+
 }
 
 void CreateGraphState::handleEvents(sf::Event &evt) {

@@ -7,16 +7,14 @@
 using namespace std;
 
 Population::~Population(){
-  for(unsigned int i=0; i<size(); i++){
-    delete at(i);
-  }
+  this->clear();
 }
 
 Individual* Population::choose(int n){
   return at(rand() %n);
 }
 
-Individual* Population::choose2(int n, int p = 0){
+Individual* Population::choose2(int n, int p){
   int r = rand() %((n+1)*n/2+n*p);
   int index = floor((sqrt(pow(1+2*p, 2)+8*r)-(1+2*p))/2);
   return at(n-1-index);
@@ -29,7 +27,8 @@ void Population::selection(int nbShuffled){
   }
 }
 
-void Population::selection2(int nbSelected, int p=0){
+
+void Population::selection2(int nbSelected, int p){
   vector<int> weight;
 
   for(unsigned int i=0;i<size();i++){

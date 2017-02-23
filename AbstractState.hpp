@@ -11,12 +11,16 @@ public:
     AbstractState(Display* display);
 
     virtual void draw()=0;
+    virtual void update()=0;
     virtual void handleEvents(sf::Event& evt)=0;
 
     sf::Sprite& getBackground();
     sf::Texture& getTexture();
     void addPoint(sf::Vector2f point);
     void removePoint(int index);
+    std::vector<sf::Vector2f> getListPoints();
+    int getRadiusPoint();
+    sf::Color getColorPoint();
 
 protected:
     Display* m_display;

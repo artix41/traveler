@@ -19,6 +19,7 @@ public:
     void mutation2();
     void evaluate();
     void shuffle();
+    vector<int> getPath();
     friend ostream& operator<<(ostream&, Path);
 
 };
