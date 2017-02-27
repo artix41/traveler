@@ -32,7 +32,7 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
       else{
         population[population.size()-nbLoozer+i]->crossOver2(father,father);
       }
-      for (int j = 0; j<10; j++){
+      for (int j = 0; j<1; j++){
         if(rand()%7==0){
           population[population.size()-nbLoozer+i]->mutation();
         }
@@ -44,6 +44,9 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
           j = population.size()-nbLoozer;
         }
       }
+    }
+    for(unsigned int i = 0; i<population.size(); i++){
+      population[i]->mutation2();
     }
   }
   sort(population.begin(),population.end(),compare);

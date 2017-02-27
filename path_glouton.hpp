@@ -19,6 +19,7 @@ public:
     void mutation();
     void mutation2();
     void evaluate();
+    void shuffle();
     bool operator()(int,int);
     friend ostream& operator<<(ostream&, Path_glouton);
 

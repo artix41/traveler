@@ -142,10 +142,30 @@ void Path::crossOver2(Individual* path1a, Individual* path2a){
     }
 }
 
+// void Path::mutation2(){
+//   int r1 = rand()%(_path.size()-1)+1;
+//   int r2 = rand()%(_path.size()-1)+1;
+//   iter_swap(_path.begin()+r1, _path.begin()+r2);
+// }
+
 void Path::mutation2(){
-  int r1 = rand()%(_path.size()-1)+1;
-  int r2 = rand()%(_path.size()-1)+1;
-  iter_swap(_path.begin()+r1, _path.begin()+r2);
+  int n = _path.size();
+  for(int j = 0; j<10; j++){
+    int r1 = rand()%n;
+    int r2 = rand()%n;
+    while(abs(r1-r2)<2){r2 = rand()%n;}
+    if(r1>r2){
+      int tmp = r1;
+      r1 = r2;
+      r2 = tmp;
+    }
+    if (_graph[_path[r1]][_path[r2]]+_graph[_path[(r1+1)%n]][_path[(r2+1)%n]] < _graph[_path[r1]][_path[(r1+1)%n]] + _graph[_path[r2]][_path[(r2+1)%n]]){
+      _fitness += _graph[_path[r1]][_path[r2]]+_graph[_path[(r1+1)%n]][_path[(r2+1)%n]] - _graph[_path[r1]][_path[(r1+1)%n]] - _graph[_path[r2]][_path[(r2+1)%n]];
+      for(int i = 0;i<(r2-r1)/2; i++){
+        iter_swap(_path.begin()+(r1+1+i)%n, _path.begin()+(r2-i)%n);
+      }
+    }
+  }
 }
 
 void Path::mutation(){
