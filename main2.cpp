@@ -27,7 +27,7 @@ int main()
     Population population;
     vector<float> x;
     vector<float> y;
-    for (int i = 0; i<100; i++){
+    for (int i = 0; i<1000; i++){
       x.push_back(rand()%100);
       y.push_back(rand()%100);
     }
