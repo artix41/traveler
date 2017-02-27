@@ -128,10 +128,10 @@ void AnimationState::draw() {
 }
 
 void AnimationState::update() {
-    m_generation++;
+    m_generation+=100;
     std::cout << "Generation : " << m_generation << '\n';
-    usleep(500000);
-    geneticAlgo(m_population, 1, m_nbLoosers);
+    usleep(50);
+    geneticAlgo(m_population, 100, m_nbLoosers);
 }
 
 void AnimationState::handleEvents(sf::Event &evt) {
