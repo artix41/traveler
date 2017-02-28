@@ -6,6 +6,6 @@ bool operator<(Individual const & individual1, Individual const & individual2){
 
 Individual::~Individual(){}
 
-float Individual::get_fitness(){
-    return(_fitness);
-}
+float Individual::get_fitness(){return(_fitness);}
+
+void Individual::set_fitness(float x){_fitness = x;}

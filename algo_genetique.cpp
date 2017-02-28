@@ -10,7 +10,7 @@ bool compare(Individual* individual1, Individual* individual2){
     return(*individual1<*individual2);
 }
 
-void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
+void geneticAlgo(Population & population, Individual* individual, int nbGeneration, int loozerFactor) {
   int nbLoozer = population.size()/loozerFactor;
   for(unsigned int i=0; i<population.size(); i++) {
     population[i]->evaluate();
@@ -18,7 +18,7 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
 
   for(int geneIndex=0; geneIndex<nbGeneration; geneIndex++){
     if ((100*geneIndex)%nbGeneration == 0){
-      std::cout << 100*geneIndex/nbGeneration << " "<< population[0]->get_fitness()<< " "<< population[450]->get_fitness() << '\n';
+      std::cout << 100*geneIndex/nbGeneration << " "<< population[0]->get_fitness()<< " "<< population[population.size()-nbLoozer-1]->get_fitness() << '\n';
     }
     sort(population.begin(),population.end(),compare);
     population.selection(0);
@@ -32,7 +32,7 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
       else{
         population[population.size()-nbLoozer+i]->crossOver2(father,father);
       }
-      for (int j = 0; j<1; j++){
+      for (int j = 0; j<10; j++){
         if(rand()%7==0){
           population[population.size()-nbLoozer+i]->mutation();
         }
@@ -46,7 +46,16 @@ void geneticAlgo(Population & population, int nbGeneration, int loozerFactor) {
       }
     }
     for(unsigned int i = 0; i<population.size(); i++){
-      population[i]->mutation2();
+      // individual->crossOver2(population[i], population[i]);
+      // individual->set_fitness(population[i]->get_fitness());
+      population[i]->mutation_locale(1);
+      // for (unsigned int j = 0; j<i; j++){
+      //   if (population[i]->get_fitness() == population[j]->get_fitness()){
+      //     population[i]->crossOver2(individual, individual);
+      //     population[i]->set_fitness(individual->get_fitness());
+      //     j = i;
+      //   }
+      // }
     }
   }
   sort(population.begin(),population.end(),compare);

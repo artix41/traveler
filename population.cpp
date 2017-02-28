@@ -11,7 +11,7 @@ Population::~Population(){
 }
 
 Individual* Population::choose(int n){
-  return at(rand() %n);
+  return at(rand()%n);
 }
 
 Individual* Population::choose2(int n, int p){
@@ -21,7 +21,7 @@ Individual* Population::choose2(int n, int p){
 }
 
 void Population::selection(int nbShuffled){
-  for(int i = size()-nbShuffled; i<size(); i++){
+  for(unsigned int i = size()-nbShuffled; i<size(); i++){
     int r = rand()%(size()-i)+i;
     iter_swap(begin()+i, begin()+r);
   }

@@ -142,15 +142,15 @@ void Path::crossOver2(Individual* path1a, Individual* path2a){
     }
 }
 
-// void Path::mutation2(){
-//   int r1 = rand()%(_path.size()-1)+1;
-//   int r2 = rand()%(_path.size()-1)+1;
-//   iter_swap(_path.begin()+r1, _path.begin()+r2);
-// }
-
 void Path::mutation2(){
+  int r1 = rand()%(_path.size()-1)+1;
+  int r2 = rand()%(_path.size()-1)+1;
+  iter_swap(_path.begin()+r1, _path.begin()+r2);
+}
+
+void Path::mutation_locale(int nb_ite){
   int n = _path.size();
-  for(int j = 0; j<10; j++){
+  for(int j = 0; j<nb_ite; j++){
     int r1 = rand()%n;
     int r2 = rand()%n;
     while(abs(r1-r2)<2){r2 = rand()%n;}

@@ -17,6 +17,7 @@ public:
     void crossOver2(Individual*, Individual*);
     void mutation();
     void mutation2();
+    void mutation_locale(int);
     void evaluate();
     void shuffle();
     vector<int> getPath();

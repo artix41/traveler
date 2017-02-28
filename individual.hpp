@@ -7,9 +7,11 @@ protected:
 public:
     virtual void mutation()=0;
     virtual void mutation2()=0;
+    virtual void mutation_locale(int)=0;
     virtual ~Individual();
     virtual void evaluate()=0;
     float get_fitness();
+    void set_fitness(float);
     virtual void shuffle()=0;
     virtual void crossOver(Individual *, Individual *)=0;
     virtual void crossOver2(Individual *, Individual *)=0;

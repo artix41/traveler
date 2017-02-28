@@ -27,7 +27,7 @@ int main()
     Population population;
     vector<float> x;
     vector<float> y;
-    for (int i = 0; i<1000; i++){
+    for (int i = 0; i<100; i++){
       x.push_back(rand()%100);
       y.push_back(rand()%100);
     }
@@ -45,7 +45,7 @@ int main()
       }
       Path path(graph.size(),true);
       path.set_graph(graph);
-      geneticAlgo(population, 100000);
+      geneticAlgo(population, &path, 100000);
       Path* solution = dynamic_cast<Path*>(population[0]);
       std::cout << (*solution) << '\n';
     }
