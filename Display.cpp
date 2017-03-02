@@ -9,12 +9,12 @@
 #include "CreateGraphState.hpp"
 #include "AnimationState.hpp"
 
-Display::Display():
+Display::Display(int nbrPointsInit):
     m_videoSettings(),
     m_windowTitle("Genetic Travelling Salesman"),
     m_renderWindow (m_videoSettings.videoMode, m_windowTitle, m_videoSettings.windowStyle)
 {
-    CreateGraphState* createGraphState = new CreateGraphState(this);
+    CreateGraphState* createGraphState = new CreateGraphState(this, nbrPointsInit);
     m_stateStack.push_back(createGraphState);
 
     m_renderWindow.setView(sf::View(sf::FloatRect(0, 0, m_renderWindow.getSize().x, m_renderWindow.getSize().y)));

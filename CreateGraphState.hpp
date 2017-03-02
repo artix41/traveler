@@ -11,10 +11,14 @@ class Display;
 
 class CreateGraphState : public AbstractState {
 public:
-    CreateGraphState(Display* display);
+    CreateGraphState(Display* display, int nbrPointsInit);
     void draw();
     void update();
     void handleEvents(sf::Event& evt);
+    void createRandomPoints(int n);
+    void createUlyssePoints();
+private:
+    int m_nbrPointsInit;
 };
 
 #endif

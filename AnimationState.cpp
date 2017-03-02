@@ -19,6 +19,7 @@ AnimationState::AnimationState(Display* display):
     m_listPoints = display->back()->getListPoints();
     m_radiusPoint = display->back()->getRadiusPoint();
     m_colorPoint = display->back()->getColorPoint();
+    std::cout << m_listPoints.size() << '\n';
 
     m_generation = 1;
 
@@ -129,9 +130,10 @@ void AnimationState::draw() {
 
 void AnimationState::update() {
     m_generation+=100;
+    Path path(m_listPoints.size(), true);
     std::cout << "Generation : " << m_generation << '\n';
-    usleep(50);
-    geneticAlgo(m_population, 100, m_nbLoosers);
+    usleep(1);
+    geneticAlgo(m_population, &path, 100, m_nbLoosers);
 }
 
 void AnimationState::handleEvents(sf::Event &evt) {
