@@ -168,6 +168,33 @@ void Path::mutation_locale(int nb_ite){
   }
 }
 
+void Path::mutation_locale2(int nb_ite){
+  int n = _path.size();
+  for(int j = 0; j<nb_ite; j++){
+    int rr1 = rand()%n;
+    for (int rr = rr1-5; rr<rr1+6; rr++){
+      int rr2 = (rr+n)%n;
+      if (abs(rr1-rr2)>1){
+        int r1,r2;
+        if (rr2<rr1){
+          r2 = rr1;
+          r1 = rr2;
+        }
+        else{
+          r2 = rr2;
+          r1 = rr1;
+        }
+        if (_graph[_path[r1]][_path[r2]]+_graph[_path[(r1+1)%n]][_path[(r2+1)%n]] < _graph[_path[r1]][_path[(r1+1)%n]] + _graph[_path[r2]][_path[(r2+1)%n]]){
+          _fitness += _graph[_path[r1]][_path[r2]]+_graph[_path[(r1+1)%n]][_path[(r2+1)%n]] - _graph[_path[r1]][_path[(r1+1)%n]] - _graph[_path[r2]][_path[(r2+1)%n]];
+          for(int i = 0;i<(r2-r1)/2; i++){
+            iter_swap(_path.begin()+(r1+1+i)%n, _path.begin()+(r2-i)%n);
+          }
+        }
+      }
+    }
+  }
+}
+
 void Path::mutation(){
   int r1 = rand()%(_path.size()-1)+1;
   int r2 = rand()%(_path.size()-r1)+r1;

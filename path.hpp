@@ -18,6 +18,7 @@ public:
     void mutation();
     void mutation2();
     void mutation_locale(int);
+    void mutation_locale2(int nb_ite);
     void evaluate();
     void shuffle();
     vector<int> getPath();
