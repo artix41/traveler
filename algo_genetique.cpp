@@ -26,11 +26,11 @@ void geneticAlgo(Population & population, Individual* individual, int nbGenerati
     for(int i=0; i<nbLoozer; i++) {
       Individual* father = population.choose(population.size()-nbLoozer);
       Individual* mother = population.choose(population.size()-nbLoozer);
-      if (rand()%2==0){
-        population[population.size()-nbLoozer+i]->crossOver2(father,mother);
+      if (rand()%2==-1){
+        population[population.size()-nbLoozer+i]->crossOver2(father,father);
       }
       else{
-        population[population.size()-nbLoozer+i]->crossOver2(father,father);
+        population[population.size()-nbLoozer+i]->crossOver2(father,mother);
       }
       for (int j = 0; j<10; j++){
         if(rand()%7==0){
@@ -46,16 +46,16 @@ void geneticAlgo(Population & population, Individual* individual, int nbGenerati
       }
     }
     for(unsigned int i = 0; i<population.size(); i++){
-      // individual->crossOver2(population[i], population[i]);
-      // individual->set_fitness(population[i]->get_fitness());
+      individual->crossOver2(population[i], population[i]);
+      individual->set_fitness(population[i]->get_fitness());
       population[i]->mutation_locale(1);
-      // for (unsigned int j = 0; j<i; j++){
-      //   if (population[i]->get_fitness() == population[j]->get_fitness()){
-      //     population[i]->crossOver2(individual, individual);
-      //     population[i]->set_fitness(individual->get_fitness());
-      //     j = i;
-      //   }
-      // }
+      for (unsigned int j = 0; j<i; j++){
+        if (population[i]->get_fitness() == population[j]->get_fitness()){
+          population[i]->crossOver2(individual, individual);
+          population[i]->set_fitness(individual->get_fitness());
+          j = i;
+        }
+      }
     }
   }
   sort(population.begin(),population.end(),compare);

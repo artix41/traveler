@@ -45,7 +45,7 @@ int main()
       }
       Path path(graph.size(),true);
       path.set_graph(graph);
-      geneticAlgo(population, &path, 100000);
+      geneticAlgo(population, &path, 1000);
       Path* solution = dynamic_cast<Path*>(population[0]);
       std::cout << (*solution) << '\n';
     }

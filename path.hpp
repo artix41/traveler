@@ -6,7 +6,7 @@
 using namespace std;
 
 class Path : public Individual {
-public:
+private:
     vector<int> _path;
     static std::vector<std::vector<float> > _graph;
 public:
