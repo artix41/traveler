@@ -4,6 +4,7 @@
 #include "algo_genetique.hpp"
 #include "population.hpp"
 #include "individual.hpp"
+#include "path.hpp"
 using namespace std;
 
 bool compare(Individual* individual1, Individual* individual2){
@@ -12,13 +13,15 @@ bool compare(Individual* individual1, Individual* individual2){
 
 void geneticAlgo(Population & population, Individual* individual, int nbGeneration, int loozerFactor) {
   int nbLoozer = population.size()/loozerFactor;
+  //dynamic_cast<Path*>(population[0])->_path = {0,13,12,11,6,5,14,4,10,8,9,18,19,20,15,2,1,16,21,3,17,7};
+
   for(unsigned int i=0; i<population.size(); i++) {
     population[i]->evaluate();
   }
 
   for(int geneIndex=0; geneIndex<nbGeneration; geneIndex++){
     if ((100*geneIndex)%nbGeneration == 0){
-      std::cout << 100*geneIndex/nbGeneration << " "<< population[0]->get_fitness()<< " "<< population[population.size()-nbLoozer-1]->get_fitness() << '\n';
+      //std::cout << 100*geneIndex/nbGeneration << " "<< population[0]->get_fitness()<< " "<< population[population.size()-nbLoozer-1]->get_fitness() << '\n';
     }
     sort(population.begin(),population.end(),compare);
     population.selection(0);

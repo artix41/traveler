@@ -10,7 +10,7 @@
 
 int main()
 {
-    Display display;
+    Display display(50);
     display.run();
     return 0;
 }

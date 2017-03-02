@@ -22,7 +22,7 @@ struct VideoSettings
 
 class Display {
 public:
-    Display();
+    Display(int nbrPointsInit);
     void run();
     void push(AbstractState* state);
     void pop();

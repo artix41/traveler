@@ -8,4 +8,4 @@ Individual::~Individual(){}
 
 float Individual::get_fitness(){return(_fitness);}
 
-void Individual::set_fitness(float x){_fitness = x;}
+void Individual::set_fitness(float x) { _fitness = x;}
