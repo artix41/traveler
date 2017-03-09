@@ -13,6 +13,7 @@ void Path::set_graph(vector<vector<float> > graph){
 }
 
 Path::Path(int pathLen, bool randomGen=false){
+  //cree un Path aleatoire ou contenant la permutation triviale
     if(randomGen){
         for(int i = 0 ; i<pathLen ; i++){
             _path.push_back(i);
@@ -35,6 +36,7 @@ vector<int> Path::getPath() {
 }
 
 ostream & operator<<(ostream& out, Path path){
+  //affiche un Path
   out<<"["<< path._path[0];
   for(unsigned int i = 1; i< path._path.size();i++){
     out<<", "<< path._path[i];
@@ -45,6 +47,8 @@ ostream & operator<<(ostream& out, Path path){
 }
 
 void Path::crossOver(Individual* path1a, Individual* path2a){
+    //crossover multipoint (on prend aleatoirement du pere ou de la mere) avec reparation
+    //reparation : replace aleatoirement les villes qui ne sont pas placees dans la permutation dans les slots contenant des villes presente en double
     Path* path1 = dynamic_cast<Path*>(path1a);
     Path* path2 = dynamic_cast<Path*>(path2a);
     unsigned int len = _path.size();
@@ -99,6 +103,8 @@ void Path::crossOver(Individual* path1a, Individual* path2a){
 }
 
 void Path::crossOver2(Individual* path1a, Individual* path2a){
+    //crossover a deux points avec reparation
+    //reparation : replace aleatoirement les villes qui ne sont pas placees dans la permutation dans les slots contenant des villes presente en double
     Path* path1 = dynamic_cast<Path*>(path1a);
     Path* path2 = dynamic_cast<Path*>(path2a);
     unsigned int len = _path.size();
@@ -142,13 +148,19 @@ void Path::crossOver2(Individual* path1a, Individual* path2a){
     }
 }
 
-void Path::mutation2(){
+
+void Path::mutation(){
+  //croise ou decroise 2 aretes, c'est a dire renverse l'ordre de passage entre deux villes
+  //marche mieux que mutation2
   int r1 = rand()%(_path.size()-1)+1;
-  int r2 = rand()%(_path.size()-1)+1;
-  iter_swap(_path.begin()+r1, _path.begin()+r2);
+  int r2 = rand()%(_path.size()-r1)+r1;
+  for(int i = 0;i<(r2-r1+1)/2; i++){
+    iter_swap(_path.begin()+r1+i, _path.begin()+r2-i);
+  }
 }
 
 void Path::mutation_locale(int nb_ite){
+  //fait une mutation (decroise deux aretes) mais ne la conserve que si elle ameliore la solution
   int n = _path.size();
   for(int j = 0; j<nb_ite; j++){
     int r1 = rand()%n;
@@ -169,6 +181,8 @@ void Path::mutation_locale(int nb_ite){
 }
 
 void Path::mutation_locale2(int nb_ite){
+  //fait une mutation (decroise deux aretes) mais ne la conserve que si elle ameliore la solution
+  // mais ne regarde que les aretes proches dans le cycle pour aider a la fin de la convergence
   int n = _path.size();
   for(int j = 0; j<nb_ite; j++){
     int rr1 = rand()%n;
@@ -195,24 +209,11 @@ void Path::mutation_locale2(int nb_ite){
   }
 }
 
-void Path::mutation(){
-  int r1 = rand()%(_path.size()-1)+1;
-  int r2 = rand()%(_path.size()-r1)+r1;
-  for(int i = 0;i<(r2-r1+1)/2; i++){
-    iter_swap(_path.begin()+r1+i, _path.begin()+r2-i);
-  }
-}
 
 void Path::evaluate(){
+    //evalue un Path : calcul la longueur du cycle code par la permutation contenue dans _path
     _fitness = _graph[_path[_path.size()-1]][_path[0]];
     for(unsigned int i = 0; i<_path.size()-1 ; i++){
         _fitness += _graph[_path[i]][_path[i+1]];
     }
-}
-
-void Path::shuffle(){
-  for(unsigned int i = 1 ; i<_path.size() ; i++){
-      int j = rand()%(_path.size()-i) + i;
-      iter_swap(_path.begin()+i, _path.begin()+j);
-  }
 }
