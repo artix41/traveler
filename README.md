@@ -12,6 +12,7 @@ You need to install [SFML](https://www.sfml-dev.org/tutorials/2.4/start-linux-fr
 
 To compile it , execute on the root of the project folder :
 ```bash
+cmake .
 make
 ```
 
