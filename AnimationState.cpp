@@ -129,11 +129,12 @@ void AnimationState::draw() {
 }
 
 void AnimationState::update() {
-    m_generation+=100;
+    int n = 1;
+    m_generation+=n;
     Path path(m_listPoints.size(), true);
     std::cout << "Generation : " << m_generation << '\n';
     usleep(1);
-    geneticAlgo(m_population, &path, 100, m_nbLoosers);
+    geneticAlgo(m_population, &path, n, m_nbLoosers);
 }
 
 void AnimationState::handleEvents(sf::Event &evt) {

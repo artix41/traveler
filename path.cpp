@@ -173,6 +173,7 @@ void Path::mutation_locale2(int nb_ite){
   for(int j = 0; j<nb_ite; j++){
     int rr1 = rand()%n;
     for (int rr = rr1-5; rr<rr1+6; rr++){
+    // for (int rr = 0; rr<n; rr++){
       int rr2 = (rr+n)%n;
       if (abs(rr1-rr2)>1){
         int r1,r2;

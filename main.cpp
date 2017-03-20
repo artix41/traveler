@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <random>
 
 #include "Display.hpp"
 #include "algo_genetique.hpp"
@@ -10,7 +11,8 @@
 
 int main()
 {
-    Display display(50);
+    srand(42);
+    Display display(100);
     display.run();
     return 0;
 }
