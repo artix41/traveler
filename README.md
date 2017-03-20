@@ -12,10 +12,10 @@ You need to install [SFML](https://www.sfml-dev.org/tutorials/2.4/start-linux-fr
 
 To compile it , execute on the root of the project folder :
 ```bash
-./compile.sh
+make
 ```
 
-To run the program, you can do :
+To run the program, you can then do :
 ```bash
 ./traveler
 ```
