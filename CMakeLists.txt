@@ -2,12 +2,12 @@
 cmake_minimum_required(VERSION 2.6)
 
 
-project(myproject)
+project(traveler)
 
 include_directories("${PROJECT_BINARY_DIR}")
 
 # Define sources and executable
-set(EXECUTABLE_NAME "myproject")
+set(EXECUTABLE_NAME "traveler")
 
 add_definitions(-std=c++11 -Wall -O3) #pedantic  -g...
 
