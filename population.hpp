@@ -9,7 +9,7 @@ public:
     ~Population();
     Individual* choose(int);
     Individual* choose2(int, int p=0);
-    void selection(int);
+    void selection(int nbShuffled = 0);
     void selection2(int, int p=0);
 };
 

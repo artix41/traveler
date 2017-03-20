@@ -27,7 +27,7 @@ int main()
     Population population;
     vector<float> x;
     vector<float> y;
-    for (int i = 0; i<300; i++){
+    for (int i = 0; i<100; i++){
       x.push_back(rand()%100);
       y.push_back(rand()%100);
     }
@@ -40,7 +40,7 @@ int main()
 
     for (int i = 0; i<1; i++){
       population.clear();
-      for (unsigned int i=0; i<500; i++){
+      for (unsigned int i=0; i<10000; i++){
         population.push_back(new Path(graph.size(),true));
       }
       Path path(graph.size(),true);
